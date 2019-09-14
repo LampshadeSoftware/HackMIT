@@ -36,7 +36,7 @@ class AudioController {
         
         let session = AVAudioSession.sharedInstance()
         do {
-            try session.setCategory(AVAudioSessionCategoryRecord)
+            try session.setCategory(AVAudioSession.Category.record)
             try session.setPreferredIOBufferDuration(10)
         } catch {
             return -1
@@ -154,6 +154,7 @@ func recordingCallback(
     }
     
     let data = Data(bytes:  buffers[0].mData!, count: Int(buffers[0].mDataByteSize))
+	
     DispatchQueue.main.async {
         AudioController.sharedInstance.delegate.processSampleData(data)
     }

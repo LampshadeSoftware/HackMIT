@@ -15,7 +15,6 @@
 		8531A3F4232D589700D5D08D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8531A3F3232D589700D5D08D /* Assets.xcassets */; };
 		8531A3F7232D589700D5D08D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8531A3F5232D589700D5D08D /* LaunchScreen.storyboard */; };
 		85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DAAADD232D9FFA005BDDCF /* AudioController.swift */; };
-		CC1A14C2232D854700F0225B /* AudioStreamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14C1232D854700F0225B /* AudioStreamHandler.swift */; };
 		CC1A14C6232D94A400F0225B /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CC1A14C5232D94A400F0225B /* Scene.sks */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +30,6 @@
 		8531A3F8232D589700D5D08D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85DAAADD232D9FFA005BDDCF /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		875176D278C311131AB64847 /* Pods-The Bubble App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.release.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.release.xcconfig"; sourceTree = "<group>"; };
-		CC1A14C1232D854700F0225B /* AudioStreamHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStreamHandler.swift; sourceTree = "<group>"; };
 		CC1A14C5232D94A400F0225B /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		DA5A32BABA1071D6945CC60F /* Pods-The Bubble App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.debug.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +88,6 @@
 				8531A3EA232D589500D5D08D /* AppDelegate.swift */,
 				8531A3EC232D589500D5D08D /* art.scnassets */,
 				8531A3EE232D589500D5D08D /* ViewController.swift */,
-				CC1A14C1232D854700F0225B /* AudioStreamHandler.swift */,
 				8531A3F0232D589500D5D08D /* Main.storyboard */,
 				8531A3F3232D589700D5D08D /* Assets.xcassets */,
 				8531A3F5232D589700D5D08D /* LaunchScreen.storyboard */,
@@ -218,7 +215,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8531A3EF232D589500D5D08D /* ViewController.swift in Sources */,
-				CC1A14C2232D854700F0225B /* AudioStreamHandler.swift in Sources */,
 				85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */,
 				8531A3EB232D589500D5D08D /* AppDelegate.swift in Sources */,
 			);

@@ -13,14 +13,13 @@ import Starscream
 
 let SAMPLE_RATE = 16000
 
-class ViewController: UIViewController, ARSKViewDelegate {
+class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegate {
 
 	@IBOutlet weak var sceneView: ARSKView!
 	
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
 
     // Audio stuff
-    var audioStreamHandler = AudioStreamHandler()
     var audioData: NSMutableData!
     
     func recordAudio() {
@@ -43,6 +42,7 @@ class ViewController: UIViewController, ARSKViewDelegate {
     }
     
     func processSampleData(_ data: Data) -> Void {
+		NSLog("Got here")
         audioData.append(data)
         
         // We recommend sending samples in 100ms chunks
@@ -62,6 +62,8 @@ class ViewController: UIViewController, ARSKViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		AudioController.sharedInstance.delegate = self
 		
 		
         NSLog("Loaded");

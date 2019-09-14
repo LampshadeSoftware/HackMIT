@@ -11,13 +11,54 @@ import SpriteKit
 import ARKit
 import Starscream
 
+let SAMPLE_RATE = 16000
+
 class ViewController: UIViewController, ARSKViewDelegate {
 
 	@IBOutlet weak var sceneView: ARSKView!
 	
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
-	
-	// var audioStreamHandler = AudioStreamHandler()
+
+    // Audio stuff
+    var audioStreamHandler = AudioStreamHandler()
+    var audioData: NSMutableData!
+    
+    func recordAudio() {
+        print("here")
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSession.Category.record)
+        } catch {
+            
+        }
+        audioData = NSMutableData()
+        _ = AudioController.sharedInstance.prepare(specifiedSampleRate: SAMPLE_RATE)
+        //        SpeechRecognitionService.sharedInstance.sampleRate = SAMPLE_RATE
+        _ = AudioController.sharedInstance.start()
+    }
+    
+    func stopAudio() {
+        _ = AudioController.sharedInstance.stop()
+        //        SpeechRecognitionService.sharedInstance.stopStreaming()
+    }
+    
+    func processSampleData(_ data: Data) -> Void {
+        audioData.append(data)
+        
+        // We recommend sending samples in 100ms chunks
+        let chunkSize : Int /* bytes/chunk */ = Int(0.1 /* seconds/chunk */
+            * Double(SAMPLE_RATE) /* samples/second */
+            * 2 /* bytes/sample */);
+        
+        if (audioData.length > chunkSize) {
+            // TODO: Send the audio data
+            print("here")
+            print(audioData)
+            
+            // Flush the data
+            self.audioData = NSMutableData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +86,7 @@ class ViewController: UIViewController, ARSKViewDelegate {
 			NSLog("Problem presenting scene")
 		}
 		
-		
+		recordAudio()
     }
     
     override func viewWillAppear(_ animated: Bool) {

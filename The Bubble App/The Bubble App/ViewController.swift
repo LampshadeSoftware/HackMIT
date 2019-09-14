@@ -7,21 +7,22 @@
 //
 
 import UIKit
-import SceneKit
+import SpriteKit
 import ARKit
 import Starscream
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSKViewDelegate {
 
-    @IBOutlet var sceneView: ARSCNView!
-    
+	@IBOutlet weak var sceneView: ARSKView!
+	
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
 	
-	var audioStreamHandler = AudioStreamHandler()
+	// var audioStreamHandler = AudioStreamHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		
+		
         NSLog("Loaded");
         
         // Connect to the Rev web socket
@@ -32,9 +33,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the view's delegate
         sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+
+		sceneView.showsFPS = true
+		sceneView.showsNodeCount = true
+
+		
+		if let scene = SKScene(fileNamed: "Scene") {
+			NSLog("Presenting scene")
+			sceneView.presentScene(scene)
+		} else {
+			NSLog("Problem presenting scene")
+		}
+		
 		
     }
     
@@ -57,14 +67,35 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
+
+    func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
+		NSLog("Adding node")
+		let labelNode = SKLabelNode(text: "sample text")
+		
+		labelNode.horizontalAlignmentMode = .center
+		labelNode.verticalAlignmentMode = .center
+		
+		labelNode.fontColor = .white
+		
+		return labelNode
+		
+	}
+	
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		NSLog("touch")
+		
+		if let currentFrame = sceneView.session.currentFrame {
+			var translation = matrix_identity_float4x4
+			translation.columns.3.z = -1.0
+			let transform = simd_mul(currentFrame.camera.transform, translation)
+			
+			let anchor = ARAnchor(transform: transform)
+			sceneView.session.add(anchor: anchor)
+			NSLog("Added anchor")
+		}
+	}
+
+
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -80,6 +111,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+	
+	
 }
 
 // MARK: - WebSocketDelegate

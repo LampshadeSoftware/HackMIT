@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C59ABEC00477852B66B9ED9 /* Pods_The_Bubble_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FDF39F6D74215D1143C53E0 /* Pods_The_Bubble_App.framework */; };
 		8531A3EB232D589500D5D08D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8531A3EA232D589500D5D08D /* AppDelegate.swift */; };
 		8531A3ED232D589500D5D08D /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 8531A3EC232D589500D5D08D /* art.scnassets */; };
 		8531A3EF232D589500D5D08D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8531A3EE232D589500D5D08D /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6FDF39F6D74215D1143C53E0 /* Pods_The_Bubble_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_The_Bubble_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8531A3E7232D589500D5D08D /* The Bubble App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Bubble App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8531A3EA232D589500D5D08D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8531A3EC232D589500D5D08D /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		8531A3F3232D589700D5D08D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8531A3F6232D589700D5D08D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8531A3F8232D589700D5D08D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		875176D278C311131AB64847 /* Pods-The Bubble App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.release.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.release.xcconfig"; sourceTree = "<group>"; };
+		DA5A32BABA1071D6945CC60F /* Pods-The Bubble App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.debug.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C59ABEC00477852B66B9ED9 /* Pods_The_Bubble_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4411FFA405A1F01049E4629B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA5A32BABA1071D6945CC60F /* Pods-The Bubble App.debug.xcconfig */,
+				875176D278C311131AB64847 /* Pods-The Bubble App.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7C6770F835AFA046C51BCCAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FDF39F6D74215D1143C53E0 /* Pods_The_Bubble_App.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8531A3DE232D589500D5D08D = {
 			isa = PBXGroup;
 			children = (
 				8531A3E9232D589500D5D08D /* The Bubble App */,
 				8531A3E8232D589500D5D08D /* Products */,
+				4411FFA405A1F01049E4629B /* Pods */,
+				7C6770F835AFA046C51BCCAC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8531A3FB232D589700D5D08D /* Build configuration list for PBXNativeTarget "The Bubble App" */;
 			buildPhases = (
+				78263CF36474DBDE88959BE5 /* [CP] Check Pods Manifest.lock */,
 				8531A3E3232D589500D5D08D /* Sources */,
 				8531A3E4232D589500D5D08D /* Frameworks */,
 				8531A3E5232D589500D5D08D /* Resources */,
+				4618E187FB12AA7214A7744E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +160,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4618E187FB12AA7214A7744E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-The Bubble App/Pods-The Bubble App-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-The Bubble App/Pods-The Bubble App-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-The Bubble App/Pods-The Bubble App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78263CF36474DBDE88959BE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-The Bubble App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8531A3E3232D589500D5D08D /* Sources */ = {
@@ -284,6 +353,7 @@
 		};
 		8531A3FC232D589700D5D08D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA5A32BABA1071D6945CC60F /* Pods-The Bubble App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +372,7 @@
 		};
 		8531A3FD232D589700D5D08D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 875176D278C311131AB64847 /* Pods-The Bubble App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

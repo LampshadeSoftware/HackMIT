@@ -9,13 +9,24 @@
 import UIKit
 import SceneKit
 import ARKit
+import Starscream
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSLog("Loaded");
+        
+        // Connect to the Rev web socket
+        socket.delegate = self
+        socket.connect()
+        
+        NSLog("Tried to connect to socket");
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -71,5 +82,37 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
+    }
+}
+
+// MARK: - WebSocketDelegate
+extension ViewController : WebSocketDelegate {
+    func websocketDidConnect(socket: WebSocketClient) {
+        NSLog("Did connect!");
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        NSLog("Did disconnect!");
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        NSLog("Did recieve message!");
+        
+        guard let data = text.data(using: .utf16),
+            let jsonData = try? JSONSerialization.jsonObject(with: data),
+            let jsonDict = jsonData as? [String: Any],
+            let messageType = jsonDict["type"] as? String,
+            let id = jsonDict["id"] as? String
+        else {
+            return
+        }
+        
+        if messageType == "connected" {
+            NSLog(id);
+        }
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        NSLog("Did recieve data!");
     }
 }

@@ -12,16 +12,18 @@ import SpriteKit
 class Bubble {
     var content: String
     var editable: Bool
-    let node: SKNode
-	let labelNode: SKLabelNode
+    var node: SKNode? = nil
+	var labelNode: SKLabelNode? = nil
     
-    init(node: SKNode) {
+    init() {
         content = ""
         editable = true
+    }
+    
+    func setNode(node: SKNode) {
         self.node = node
-		
-		labelNode = SKLabelNode(text: content)
-		self.node.addChild(labelNode)
+        labelNode = SKLabelNode(text: content)
+        self.node!.addChild(labelNode!)
     }
     
     func setContent(revElements: [RevElement], final: Bool) {
@@ -35,7 +37,18 @@ class Bubble {
             counter += 1
         }
         self.content = newContent
-        // TODO: Update the node
-		self.labelNode.text = newContent
+        
+        // Update the label node that stores the content
+		self.labelNode?.text = newContent
+        
+        // Once done updating, initial kill sequence
+        if (final) {
+            node?.run(
+                SKAction.sequence([
+                    SKAction.wait(forDuration: 2.0),
+                    SKAction.removeFromParent()
+                    ])
+            )
+        }
     }
 }

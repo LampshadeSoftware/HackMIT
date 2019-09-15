@@ -34,30 +34,5 @@
             </objects>
             <point key="canvasLocation" x="124.6376811594203" y="95.758928571428569"/>
         </scene>
-        <!--Face Detection View Controller-->
-        <scene sceneID="9dF-0R-jWR">
-            <objects>
-                <viewController id="A6y-Xv-a0f" customClass="FaceDetectionViewController" customModule="The_Bubble_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hwP-QJ-Nug">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AJZ-h9-GFE" customClass="FaceView" customModule="The_Bubble_App" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="jo2-Gj-BP7"/>
-                    </view>
-                    <connections>
-                        <outlet property="faceView" destination="AJZ-h9-GFE" id="2zf-zv-4LF"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yXs-YW-cW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="985.50724637681162" y="106.47321428571428"/>
-        </scene>
     </scenes>
 </document>

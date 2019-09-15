@@ -22,6 +22,7 @@
 		CC1A14DC232DBBDC00F0225B /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14DA232DBBDC00F0225B /* CoreGraphicsExtensions.swift */; };
 		CC1A14DF232DBCAA00F0225B /* FaceDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14DD232DBCAA00F0225B /* FaceDetectionViewController.swift */; };
 		CC1A14E0232DBCAA00F0225B /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14DE232DBCAA00F0225B /* FaceView.swift */; };
+		CC1A14E2232DDAB500F0225B /* FaceTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14E1232DDAB500F0225B /* FaceTracker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		CC1A14DA232DBBDC00F0225B /* CoreGraphicsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsExtensions.swift; sourceTree = "<group>"; };
 		CC1A14DD232DBCAA00F0225B /* FaceDetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetectionViewController.swift; sourceTree = "<group>"; };
 		CC1A14DE232DBCAA00F0225B /* FaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
+		CC1A14E1232DDAB500F0225B /* FaceTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTracker.swift; sourceTree = "<group>"; };
 		DA5A32BABA1071D6945CC60F /* Pods-The Bubble App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.debug.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 				CC1A14DE232DBCAA00F0225B /* FaceView.swift */,
 				8531A3EA232D589500D5D08D /* AppDelegate.swift */,
 				8531A3EE232D589500D5D08D /* ViewController.swift */,
+				CC1A14E1232DDAB500F0225B /* FaceTracker.swift */,
 				8531A3F0232D589500D5D08D /* Main.storyboard */,
 				8531A3F3232D589700D5D08D /* Assets.xcassets */,
 				8531A3F5232D589700D5D08D /* LaunchScreen.storyboard */,
@@ -246,6 +249,7 @@
 				CC1A14E0232DBCAA00F0225B /* FaceView.swift in Sources */,
 				8581EC17232DBAE800D7F6BC /* utils.swift in Sources */,
 				85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */,
+				CC1A14E2232DDAB500F0225B /* FaceTracker.swift in Sources */,
 				CC1A14DC232DBBDC00F0225B /* CoreGraphicsExtensions.swift in Sources */,
 				8531A3EB232D589500D5D08D /* AppDelegate.swift in Sources */,
 				CC1A14DF232DBCAA00F0225B /* FaceDetectionViewController.swift in Sources */,

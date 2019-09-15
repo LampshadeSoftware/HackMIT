@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import ARKit
 import Starscream
-import simd
+import Vision
 
 let SAMPLE_RATE = 16000
 let CHUNK_LENGTH = 1.0  // in seconds
@@ -28,6 +28,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
     var audioData: Data!
     var session: Session!
+	var faceTracker: FaceTracker!
     
     func recordAudio() {
         let audioSession = AVAudioSession.sharedInstance()
@@ -79,7 +80,8 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
         socket.connect()
         
         NSLog("Tried to connect to socket");
-        
+		
+		
         // Set the view's delegate
         sceneView.delegate = self
 
@@ -94,7 +96,10 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 			NSLog("Problem presenting scene")
 		}
 		
+		faceTracker = FaceTracker()
+		
 		recordAudio()
+		
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,20 +124,28 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
 		NSLog("Adding node")
-		let labelNode = SKLabelNode(text: "sample text")
 		
-		labelNode.horizontalAlignmentMode = .center
+		let labelNode = SKLabelNode(text: "sample text")
+		labelNode.fontColor = .white
 		labelNode.verticalAlignmentMode = .center
 		
-		labelNode.fontColor = .white
+		let boxNode = SKSpriteNode(color: .black, size: labelNode.frame.size)
+
+		let node = SKNode()
+		node.addChild(boxNode)
+		node.addChild(labelNode)
 		
-		return labelNode
+		return node
 	}
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		NSLog("touch")
 		
 		if let currentFrame = sceneView.session.currentFrame {
+			let pos = faceTracker.getFacePosition(pixelBuffer: currentFrame.capturedImage)
+			NSLog("\(pos)")
+			
+			
 			var translation = matrix_identity_float4x4
 			translation.columns.3.z = -1.0
 			let transform = simd_mul(currentFrame.camera.transform, translation)
@@ -140,7 +153,9 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 			let anchor = ARAnchor(transform: transform)
 			sceneView.session.add(anchor: anchor)
 			NSLog("Added anchor")
+			
 		}
+		
 	}
 
 
@@ -159,7 +174,6 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
-	
 	
 }
 
@@ -192,4 +206,3 @@ extension ViewController : WebSocketDelegate {
         NSLog("Did recieve data!");
     }
 }
-

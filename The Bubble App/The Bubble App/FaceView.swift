@@ -3,28 +3,13 @@ import UIKit
 import Vision
 
 class FaceView: UIView {
-	var leftEye: [CGPoint] = []
-	var rightEye: [CGPoint] = []
-	var leftEyebrow: [CGPoint] = []
-	var rightEyebrow: [CGPoint] = []
-	var nose: [CGPoint] = []
-	var outerLips: [CGPoint] = []
-	var innerLips: [CGPoint] = []
-	var faceContour: [CGPoint] = []
 
-	var boundingBox = CGRect(x: 10, y: 10, width: 100, height: 100)
+	var boundingBox = CGRect.zero
 
 	func clear() {
-		leftEye = []
-		rightEye = []
-		leftEyebrow = []
-		rightEyebrow = []
-		nose = []
-		outerLips = []
-		innerLips = []
-		faceContour = []
 
-		boundingBox = CGRect(x: 10, y: 10, width: 100, height: 100)
+
+		boundingBox = .zero
 
 		DispatchQueue.main.async {
 		  self.setNeedsDisplay()
@@ -34,6 +19,7 @@ class FaceView: UIView {
 	override func draw(_ rect: CGRect) {
 		// 1
 		guard let context = UIGraphicsGetCurrentContext() else {
+
 			return
 		}
 		
@@ -49,6 +35,7 @@ class FaceView: UIView {
 		context.addRect(boundingBox)
 		
 		// 5
+
 		UIColor.red.setStroke()
 		
 		// 6

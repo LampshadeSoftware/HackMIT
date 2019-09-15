@@ -29,6 +29,8 @@ class FaceDetectionViewController: UIViewController {
 		maxX = view.bounds.maxX
 		midY = view.bounds.midY
 		maxY = view.bounds.maxY
+		
+		view.bringSubviewToFront(faceView)
 
 		session.startRunning()
 	}
@@ -40,14 +42,14 @@ class FaceDetectionViewController: UIViewController {
 			let result = results.first
 			else {
 				// 2
-				NSLog("unable to find face")
 				faceView.clear()
 				return
 			}
 		
 		// 3
-		let box = result.boundingBox
-		faceView.boundingBox = convert(rect: box)
+		let box = convert(rect: result.boundingBox)
+		faceView.boundingBox = box
+		NSLog("\(box)")
 		
 		// 4
 		DispatchQueue.main.async {
@@ -57,13 +59,15 @@ class FaceDetectionViewController: UIViewController {
 	
 	func convert(rect: CGRect) -> CGRect {
 		// 1
-		let origin = previewLayer.layerPointConverted(fromCaptureDevicePoint: rect.origin)
+		
+		let origin = CGPoint(x: rect.origin.x * maxX, y: maxY - (rect.origin.y * maxY))
+		
 		
 		// 2
-		let size = previewLayer.layerPointConverted(fromCaptureDevicePoint: rect.size.cgPoint)
+		let size = CGSize(width: rect.width * maxX, height: rect.height * maxY)
 		
 		// 3
-		return CGRect(origin: origin, size: size.cgSize)
+		return CGRect(origin: origin, size: size)
 	}
 
 
@@ -75,11 +79,13 @@ class FaceDetectionViewController: UIViewController {
 extension FaceDetectionViewController {
   func configureCaptureSession() {
 		// Define the capture device we want to use
+	
 		guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera,
 												   for: .video,
 												   position: .back) else {
 		  fatalError("No front video camera available")
 		}
+	
 
 		// Connect the camera to the capture session input
 		do {
@@ -104,7 +110,7 @@ extension FaceDetectionViewController {
 		previewLayer = AVCaptureVideoPreviewLayer(session: session)
 		previewLayer.videoGravity = .resizeAspectFill
 		previewLayer.frame = view.bounds
-		view.layer.insertSublayer(previewLayer, at: 10)
+		view.layer.insertSublayer(previewLayer, at: 1)
 	}
 }
 

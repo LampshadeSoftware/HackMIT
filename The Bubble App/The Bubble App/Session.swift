@@ -7,17 +7,26 @@
 //
 
 import Foundation
+import SpriteKit
 
 class Session {
     var bubbles: [Bubble]
+    var getNode: () -> SKNode
     
-    init() {
-        bubbles = [Bubble()]
+    init(getNode: @escaping () -> SKNode) {
+        bubbles = []
+        self.getNode = getNode
     }
     
-    func updateBubbleContent(revResponse: [RevElement], final: Bool) {
+    func updateBubbleContent(revResponse: RevResponse) {
+        let elements = revResponse.elements ?? []
+        if elements.count == 0 {
+            return
+        }
+        
+        let final = revResponse.type == "final"
         let currentBubble = getCurrentBubble()
-        currentBubble.setContent(revResponse: revResponse)
+        currentBubble.setContent(revElements: elements, final: final)
         if (final) {
             currentBubble.editable = false
         }
@@ -29,11 +38,12 @@ class Session {
      */
     private func getCurrentBubble() -> Bubble {
         if let lastBubble = bubbles.last {
-            if lastBubble.editable{
+            if lastBubble.editable {
                 return lastBubble
             }
         }
-        let newBubble = Bubble()
+        let node = getNode()
+        let newBubble = Bubble(node: node)
         bubbles.append(newBubble)
         return newBubble
     }

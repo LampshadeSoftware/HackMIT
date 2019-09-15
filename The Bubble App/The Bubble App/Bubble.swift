@@ -7,26 +7,30 @@
 //
 
 import Foundation
+import SpriteKit
 
 class Bubble {
     var content: String
-    let startTime: Int
     var editable: Bool
+    let node: SKNode
     
-    init() {
+    init(node: SKNode) {
         content = ""
-        startTime = 0
         editable = true
+        self.node = node
     }
     
-    func setContent(revResponse: [RevElement]) {
+    func setContent(revElements: [RevElement], final: Bool) {
         var newContent = ""
-        for element in revResponse {
-            if element.type != "punct" {
+        var counter = 0
+        for element in revElements {
+            if element.type != "punct" && !final && counter != 0 {
                 newContent += " "
             }
             newContent += element.value
+            counter += 1
         }
         self.content = newContent
+        // TODO: Update the node
     }
 }

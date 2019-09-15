@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import ARKit
 import Starscream
+import simd
 
 let SAMPLE_RATE = 16000
 let CHUNK_LENGTH = 1.0  // in seconds
@@ -17,10 +18,16 @@ let CHUNK_LENGTH = 1.0  // in seconds
 class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegate {
 
 	@IBOutlet weak var sceneView: ARSKView!
+    
+    // TODO: remove this
+    func getNode() -> SKNode {
+        return SKNode()
+    }
 	
+    let decoder = JSONDecoder()
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
     var audioData: Data!
-    var session: Session = Session()
+    var session: Session!
     
     func recordAudio() {
         let audioSession = AVAudioSession.sharedInstance()
@@ -61,8 +68,9 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+        session = Session(getNode: getNode)
+        
 		AudioController.sharedInstance.delegate = self
-		
 		
         NSLog("Loaded");
         
@@ -119,7 +127,6 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 		labelNode.fontColor = .white
 		
 		return labelNode
-		
 	}
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -167,27 +174,18 @@ extension ViewController : WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        let decoder = JSONDecoder()
-        NSLog("Did recieve message!");
-        
         let data = text.data(using: .utf16)
         do {
             let jsonData = try decoder.decode(RevResponse.self, from: data!)
             
             let messageType = jsonData.type
             if messageType == "final" || messageType == "partial" {
-                guard let elements = jsonData.elements
-                    else {
-                        return
-                }
-                session.updateBubbleContent(revResponse: elements, final: messageType == "final")
+                session.updateBubbleContent(revResponse: jsonData)
                 NSLog(session.bubbles.last!.content)
             }
         } catch {
             return
         }
-    
-        
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {

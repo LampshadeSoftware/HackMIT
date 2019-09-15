@@ -13,14 +13,15 @@ let MAX_CONTENT_LENGTH = 300
 struct RevResponse: Codable {
     let type: String
     let elements: [RevElement]?
-    let ts: String?
-    let end_ts: String?
+    let ts: Float?
+    let end_ts: Float?
     let id: String?
 }
 
 struct RevElement: Codable {
     let type: String
     let value: String
-    let ts: String?
-    let end_ts: String?
+    let ts: Float?
+    let end_ts: Float?
+    let confidence: Double?
 }

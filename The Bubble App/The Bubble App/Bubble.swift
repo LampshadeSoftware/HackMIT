@@ -44,8 +44,9 @@ class Bubble {
         // Remove and re-make the box node (because it's stupid and can't be re-sized)
         if (labelNode != nil) {
             self.boxNode?.removeFromParent()
-            let size = labelNode!.frame.size
-            let boxNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: size.width / -2, y: size.height / -2), size: size), cornerRadius: 10)
+            let labelSize = labelNode!.frame.size
+            let size = CGSize(width: labelSize.width + 40, height: labelSize.height + 40)
+            let boxNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: size.width / -2, y: size.height / -2), size: size), cornerRadius: 20)
             boxNode.fillColor = .white
             boxNode.strokeColor = .white
             self.boxNode = boxNode

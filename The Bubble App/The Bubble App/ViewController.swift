@@ -142,7 +142,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 		NSLog("touch")
 		
 		if let currentFrame = sceneView.session.currentFrame {
-			let pos = faceTracker.getFacePosition(pixelBuffer: currentFrame.capturedImage)
+			let pos = faceTracker.getFaceBox(pixelBuffer: currentFrame.capturedImage)
 			NSLog("\(pos)")
 			
 			

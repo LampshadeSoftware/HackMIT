@@ -13,11 +13,15 @@ class Bubble {
     var content: String
     var editable: Bool
     let node: SKNode
+	let labelNode: SKLabelNode
     
     init(node: SKNode) {
         content = ""
         editable = true
         self.node = node
+		
+		labelNode = SKLabelNode(text: content)
+		self.node.addChild(labelNode)
     }
     
     func setContent(revElements: [RevElement], final: Bool) {
@@ -32,5 +36,6 @@ class Bubble {
         }
         self.content = newContent
         // TODO: Update the node
+		self.labelNode.text = newContent
     }
 }

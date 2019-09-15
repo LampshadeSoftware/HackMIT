@@ -19,7 +19,7 @@ class FaceTracker {
 	
 	var currentFaceBox: CGRect = CGRect.zero
 	
-	func getFacePosition(pixelBuffer: CVPixelBuffer) -> CGRect {
+	func getFaceBox(pixelBuffer: CVPixelBuffer) -> CGRect {
 		let detectFaceRequest = VNDetectFaceRectanglesRequest(completionHandler: detectedFace)
 		
 		// 3

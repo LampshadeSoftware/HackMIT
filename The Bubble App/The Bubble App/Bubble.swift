@@ -23,25 +23,35 @@ class Bubble {
     
     func setNode(node: SKNode) {
 		
-        let labelNode = SKLabelNode(text: content)
+        let labelNode = SKLabelNode()
 		labelNode.fontName = "AvenirNext-Bold"
 		labelNode.fontColor = .black
 		labelNode.numberOfLines = 0
 		labelNode.preferredMaxLayoutWidth = 220
 		labelNode.fontSize = 20
 		labelNode.verticalAlignmentMode = .center
-		
-		
-		let boxNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0, y: 0), size: labelNode.frame.size), cornerRadius: 10)
-		boxNode.fillColor = .white
-		boxNode.strokeColor = .white
-		
-		node.addChild(boxNode)
         node.addChild(labelNode)
+        
+        updateUI(text: content)
 		
 		self.node = node
 		self.labelNode = labelNode
-		self.boxNode = boxNode
+    }
+    
+    func updateUI(text: String) {
+        self.labelNode?.text = text
+        
+        // Remove and re-make the box node (because it's stupid and can't be re-sized)
+        if (labelNode != nil) {
+            self.boxNode?.removeFromParent()
+            let size = labelNode!.frame.size
+            let boxNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: size.width / -2, y: size.height / -2), size: size), cornerRadius: 10)
+            boxNode.fillColor = .white
+            boxNode.strokeColor = .white
+            self.boxNode = boxNode
+            
+            self.node?.addChild(self.boxNode!)
+        }
     }
     
     func setContent(revElements: [RevElement], final: Bool) {
@@ -56,14 +66,8 @@ class Bubble {
         }
         self.content = newContent
         
-        // Update the label node that stores the content
-		self.labelNode?.text = newContent
-
-		if (labelNode != nil) {
-			self.boxNode?.removeFromParent()
-			self.boxNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0, y: 0), size: labelNode!.frame.size), cornerRadius: 10)
-			self.node?.addChild(self.boxNode!)
-		}
+        // Update the bubble UI
+        updateUI(text: newContent)
         
         // Once done updating, initial kill sequence
         if (final) {

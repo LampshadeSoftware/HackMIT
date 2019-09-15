@@ -133,7 +133,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 			let faceBox = faceTracker.getFaceBox(pixelBuffer: currentFrame.capturedImage)
 			if (faceBox != nil) {
 				var translation = matrix_identity_float4x4
-				translation.columns.3.z = -1.0
+				translation.columns.3.z = -2.0
 				let transform = simd_mul(currentFrame.camera.transform, translation)
 				
 				let anchor = ARAnchor(transform: transform)
@@ -179,7 +179,7 @@ extension ViewController : WebSocketDelegate {
             let messageType = jsonData.type
             if messageType == "final" || messageType == "partial" {
                 session.updateBubbleContent(revResponse: jsonData)
-                NSLog(session.bubbles.last!.content)
+
             }
         } catch {
             return

@@ -24,6 +24,8 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     var audioData: Data!
     var session: Session!
 	var faceTracker: FaceTracker!
+	
+	
     
     func recordAudio() {
         let audioSession = AVAudioSession.sharedInstance()
@@ -133,7 +135,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 			let faceBox = faceTracker.getFaceBox(pixelBuffer: currentFrame.capturedImage)
 			if (faceBox != nil) {
 				var translation = matrix_identity_float4x4
-				translation.columns.3.z = -2.0
+				translation.columns.3.z = Float(getDistance(faceBox: faceBox!) * -1)
 				let transform = simd_mul(currentFrame.camera.transform, translation)
 				
 				let anchor = ARAnchor(transform: transform)
@@ -143,6 +145,17 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 			}
 		}
 	}
+	
+	func getDistance(faceBox: CGRect) -> CGFloat {
+		let faceSize = (faceBox.width + faceBox.height) / 2
+		
+		let distance = faceSize * FaceTracker.FACE_WIDTH_TO_Z_DISTANCE_MULTIPLIER
+		
+		NSLog("Face Size: \(faceSize)")
+		NSLog("Distance: \(distance)")
+		return distance
+	}
+	
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user

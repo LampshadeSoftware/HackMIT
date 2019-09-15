@@ -12,6 +12,7 @@ import ARKit
 import Starscream
 
 let SAMPLE_RATE = 16000
+let CHUNK_LENGTH = 1.0  // in seconds
 
 class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegate {
 
@@ -20,7 +21,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
 
     // Audio stuff
-    var audioData: NSMutableData!
+    var audioData: Data!
     
     func recordAudio() {
         print("here")
@@ -30,7 +31,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
         } catch {
             
         }
-        audioData = NSMutableData()
+        audioData = Data()
         _ = AudioController.sharedInstance.prepare(specifiedSampleRate: SAMPLE_RATE)
         //        SpeechRecognitionService.sharedInstance.sampleRate = SAMPLE_RATE
         _ = AudioController.sharedInstance.start()
@@ -42,21 +43,20 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     }
     
     func processSampleData(_ data: Data) -> Void {
-		NSLog("Got here")
         audioData.append(data)
         
-        // We recommend sending samples in 100ms chunks
-        let chunkSize : Int /* bytes/chunk */ = Int(0.1 /* seconds/chunk */
+        // We recommend sending samples in 1000ms chunks
+        
+        let chunkSize : Int /* bytes/chunk */ = Int(CHUNK_LENGTH /* seconds/chunk */
             * Double(SAMPLE_RATE) /* samples/second */
             * 2 /* bytes/sample */);
         
-        if (audioData.length > chunkSize) {
-            // TODO: Send the audio data
-            print("here")
-            print(audioData)
+        if (audioData.count > chunkSize) {
+            // Send the audio data to Rev
+            socket.write(data: audioData)
             
             // Flush the data
-            self.audioData = NSMutableData()
+            self.audioData = Data()
         }
     }
     
@@ -170,6 +170,7 @@ extension ViewController : WebSocketDelegate {
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         NSLog("Did recieve message!");
+        NSLog(text);
         
         guard let data = text.data(using: .utf16),
             let jsonData = try? JSONSerialization.jsonObject(with: data),

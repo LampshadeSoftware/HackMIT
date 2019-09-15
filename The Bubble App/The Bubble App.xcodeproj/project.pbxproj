@@ -13,6 +13,9 @@
 		8531A3F2232D589500D5D08D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8531A3F0232D589500D5D08D /* Main.storyboard */; };
 		8531A3F4232D589700D5D08D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8531A3F3232D589700D5D08D /* Assets.xcassets */; };
 		8531A3F7232D589700D5D08D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8531A3F5232D589700D5D08D /* LaunchScreen.storyboard */; };
+		8581EC13232DB57700D7F6BC /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8581EC12232DB57700D7F6BC /* Session.swift */; };
+		8581EC15232DB5E600D7F6BC /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8581EC14232DB5E600D7F6BC /* Bubble.swift */; };
+		8581EC17232DBAE800D7F6BC /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8581EC16232DBAE800D7F6BC /* utils.swift */; };
 		85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DAAADD232D9FFA005BDDCF /* AudioController.swift */; };
 		CC1A14C6232D94A400F0225B /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CC1A14C5232D94A400F0225B /* Scene.sks */; };
 		CC1A14DB232DBBDC00F0225B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14D9232DBBDC00F0225B /* UIViewExtension.swift */; };
@@ -30,6 +33,9 @@
 		8531A3F3232D589700D5D08D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8531A3F6232D589700D5D08D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8531A3F8232D589700D5D08D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8581EC12232DB57700D7F6BC /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		8581EC14232DB5E600D7F6BC /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
+		8581EC16232DBAE800D7F6BC /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		85DAAADD232D9FFA005BDDCF /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		875176D278C311131AB64847 /* Pods-The Bubble App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.release.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.release.xcconfig"; sourceTree = "<group>"; };
 		CC1A14C5232D94A400F0225B /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -101,6 +107,9 @@
 				8531A3F5232D589700D5D08D /* LaunchScreen.storyboard */,
 				8531A3F8232D589700D5D08D /* Info.plist */,
 				85DAAADD232D9FFA005BDDCF /* AudioController.swift */,
+				8581EC12232DB57700D7F6BC /* Session.swift */,
+				8581EC14232DB5E600D7F6BC /* Bubble.swift */,
+				8581EC16232DBAE800D7F6BC /* utils.swift */,
 			);
 			path = "The Bubble App";
 			sourceTree = "<group>";
@@ -230,9 +239,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8581EC13232DB57700D7F6BC /* Session.swift in Sources */,
+				8581EC15232DB5E600D7F6BC /* Bubble.swift in Sources */,
 				CC1A14DB232DBBDC00F0225B /* UIViewExtension.swift in Sources */,
 				8531A3EF232D589500D5D08D /* ViewController.swift in Sources */,
 				CC1A14E0232DBCAA00F0225B /* FaceView.swift in Sources */,
+				8581EC17232DBAE800D7F6BC /* utils.swift in Sources */,
 				85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */,
 				CC1A14DC232DBBDC00F0225B /* CoreGraphicsExtensions.swift in Sources */,
 				8531A3EB232D589500D5D08D /* AppDelegate.swift in Sources */,

@@ -19,12 +19,10 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 	@IBOutlet weak var sceneView: ARSKView!
 	
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
-
-    // Audio stuff
     var audioData: Data!
+    var session: Session = Session()
     
     func recordAudio() {
-        print("here")
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSession.Category.record)
@@ -169,21 +167,27 @@ extension ViewController : WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        let decoder = JSONDecoder()
         NSLog("Did recieve message!");
-        NSLog(text);
         
-        guard let data = text.data(using: .utf16),
-            let jsonData = try? JSONSerialization.jsonObject(with: data),
-            let jsonDict = jsonData as? [String: Any],
-            let messageType = jsonDict["type"] as? String,
-            let id = jsonDict["id"] as? String
-        else {
+        let data = text.data(using: .utf16)
+        do {
+            let jsonData = try decoder.decode(RevResponse.self, from: data!)
+            
+            let messageType = jsonData.type
+            if messageType == "final" || messageType == "partial" {
+                guard let elements = jsonData.elements
+                    else {
+                        return
+                }
+                session.updateBubbleContent(revResponse: elements, final: messageType == "final")
+                NSLog(session.bubbles.last!.content)
+            }
+        } catch {
             return
         }
+    
         
-        if messageType == "connected" {
-            NSLog(id);
-        }
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {

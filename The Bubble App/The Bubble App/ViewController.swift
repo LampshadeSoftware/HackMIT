@@ -135,30 +135,27 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 		node.addChild(boxNode)
 		node.addChild(labelNode)
 		
+		let bubble = anchor.value(forKey: "bubble") as! Bubble
+		bubble.node = node
 		return node
 	}
 	
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		NSLog("touch")
-		
+	func setNodeIfFaceExists(bubble: Bubble) {
 		if let currentFrame = sceneView.session.currentFrame {
-			let pos = faceTracker.getFaceBox(pixelBuffer: currentFrame.capturedImage)
-			NSLog("\(pos)")
-			
-			
-			var translation = matrix_identity_float4x4
-			translation.columns.3.z = -1.0
-			let transform = simd_mul(currentFrame.camera.transform, translation)
-			
-			let anchor = ARAnchor(transform: transform)
-			sceneView.session.add(anchor: anchor)
-			NSLog("Added anchor")
-			
+			let faceBox = faceTracker.getFaceBox(pixelBuffer: currentFrame.capturedImage)
+			if (faceBox != nil) {
+				var translation = matrix_identity_float4x4
+				translation.columns.3.z = -1.0
+				let transform = simd_mul(currentFrame.camera.transform, translation)
+				
+				let anchor = ARAnchor(transform: transform)
+				anchor.setValue(bubble, forKey: "bubble")
+				
+				sceneView.session.add(anchor: anchor)
+				NSLog("Added anchor")
+			}
 		}
-		
 	}
-
-
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user

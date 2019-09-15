@@ -17,9 +17,15 @@ class FaceTracker {
 	
 	var sequenceHandler = VNSequenceRequestHandler()
 	
-	var currentFaceBox: CGRect = CGRect.zero
+	var currentFaceBox: CGRect? = nil
 	
-	func getFaceBox(pixelBuffer: CVPixelBuffer) -> CGRect {
+	var frame: CGSize? = nil
+	
+	func getFaceBox(pixelBuffer: CVPixelBuffer) -> CGRect? {
+		if (frame == nil) {
+			frame = CGSize(width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
+		}
+
 		let detectFaceRequest = VNDetectFaceRectanglesRequest(completionHandler: detectedFace)
 		
 		// 3
@@ -32,7 +38,7 @@ class FaceTracker {
 			return self.currentFaceBox
 		} catch {
 			print(error.localizedDescription)
-			return CGRect.zero
+			return nil
 		}
 	}
 	
@@ -43,13 +49,24 @@ class FaceTracker {
 			let result = results.first
 			else {
 				NSLog("No face detected")
-				currentFaceBox = .zero
+				currentFaceBox = nil
 				return
 			}
 		NSLog("Detected face!")
 		
-		currentFaceBox = result.boundingBox
-		
+		currentFaceBox = convertCoordinates(box: result.boundingBox)
 	}
 	
+	func convertCoordinates(box: CGRect) -> CGRect {
+		let width = frame!.width
+		let height = frame!.height
+		
+		let x = width * box.origin.x
+		let y = height * box.origin.y
+		
+		let adjustedWidth = width * box.width
+		let adjustedHeight = height * box.height
+		
+		return CGRect(x: x, y: y, width: adjustedWidth, height: adjustedHeight)
+	}
 }

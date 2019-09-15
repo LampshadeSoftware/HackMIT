@@ -18,11 +18,6 @@ let CHUNK_LENGTH = 1.0  // in seconds
 class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegate {
 
 	@IBOutlet weak var sceneView: ARSKView!
-    
-    // TODO: remove this
-    func getNode() -> SKNode {
-        return SKNode()
-    }
 	
     let decoder = JSONDecoder()
     var socket = WebSocket(url: URL(string: "wss://api.rev.ai/speechtotext/v1alpha/stream?access_token=02w0YXKRxWEAtCh_mgitSSsuq74oInJPBIZ-t6xy5dvlTMGzZoRKQI8sTPE6mJxqCwwOA4UYa8s67iEm4ny54aIBYt8YM&content_type=audio/x-raw;layout=interleaved;rate=16000;format=S16LE;channels=1")!)
@@ -69,7 +64,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-        session = Session(getNode: getNode)
+		session = Session(addToScene: setNodeIfFaceExists)
         
 		AudioController.sharedInstance.delegate = self
 		
@@ -120,23 +115,16 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
     }
 
     // MARK: - ARSCNViewDelegate
-    
+	var currentBubble: Bubble? = nil
 
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
 		NSLog("Adding node")
 		
-		let labelNode = SKLabelNode(text: "sample text")
-		labelNode.fontColor = .white
-		labelNode.verticalAlignmentMode = .center
-		
-		let boxNode = SKSpriteNode(color: .black, size: labelNode.frame.size)
-
 		let node = SKNode()
-		node.addChild(boxNode)
-		node.addChild(labelNode)
 		
-		let bubble = anchor.value(forKey: "bubble") as! Bubble
-		bubble.node = node
+		if (currentBubble != nil) {
+			currentBubble!.setNode(node: node)
+		}
 		return node
 	}
 	
@@ -149,10 +137,9 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 				let transform = simd_mul(currentFrame.camera.transform, translation)
 				
 				let anchor = ARAnchor(transform: transform)
-				anchor.setValue(bubble, forKey: "bubble")
+				currentBubble = bubble
 				
 				sceneView.session.add(anchor: anchor)
-				NSLog("Added anchor")
 			}
 		}
 	}

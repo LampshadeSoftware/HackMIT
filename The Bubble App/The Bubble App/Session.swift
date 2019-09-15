@@ -11,11 +11,11 @@ import SpriteKit
 
 class Session {
     var bubbles: [Bubble]
-    var getNode: () -> SKNode
+	var addToScene: (_ bubble: Bubble) -> Void
     
-    init(getNode: @escaping () -> SKNode) {
+	init(addToScene: @escaping (_ bubble: Bubble) -> Void) {
         bubbles = []
-        self.getNode = getNode
+        self.addToScene = addToScene
     }
     
     func updateBubbleContent(revResponse: RevResponse) {
@@ -42,8 +42,9 @@ class Session {
                 return lastBubble
             }
         }
-        let node = getNode()
-        let newBubble = Bubble(node: node)
+        
+        let newBubble = Bubble()
+		addToScene(newBubble)
         bubbles.append(newBubble)
         return newBubble
     }

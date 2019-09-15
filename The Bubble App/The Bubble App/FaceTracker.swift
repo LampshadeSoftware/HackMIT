@@ -21,7 +21,8 @@ class FaceTracker {
 	
 	var frame: CGSize? = nil
 	
-	static let FACE_WIDTH_TO_Z_DISTANCE_MULTIPLIER: CGFloat = 0.003
+	static let FACE_WIDTH_TO_Z_DISTANCE_DIVIDER: CGFloat = 350
+	static let Y_OFFSET_DISTANCE_MULTIPLIER: CGFloat = 0.001
 	
 	func getFaceBox(pixelBuffer: CVPixelBuffer) -> CGRect? {
 		if (frame == nil) {

@@ -135,7 +135,9 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 			let faceBox = faceTracker.getFaceBox(pixelBuffer: currentFrame.capturedImage)
 			if (faceBox != nil) {
 				var translation = matrix_identity_float4x4
-				translation.columns.3.z = Float(getDistance(faceBox: faceBox!) * -1)
+				let distance = getDistance(faceBox: faceBox!)
+				translation.columns.3.z = Float(distance * -1)
+				
 				let transform = simd_mul(currentFrame.camera.transform, translation)
 				
 				let anchor = ARAnchor(transform: transform)
@@ -149,7 +151,7 @@ class ViewController: UIViewController, ARSKViewDelegate, AudioControllerDelegat
 	func getDistance(faceBox: CGRect) -> CGFloat {
 		let faceSize = (faceBox.width + faceBox.height) / 2
 		
-		let distance = faceSize * FaceTracker.FACE_WIDTH_TO_Z_DISTANCE_MULTIPLIER
+		let distance = FaceTracker.FACE_WIDTH_TO_Z_DISTANCE_DIVIDER / faceSize
 		
 		NSLog("Face Size: \(faceSize)")
 		NSLog("Distance: \(distance)")

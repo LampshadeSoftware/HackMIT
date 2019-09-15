@@ -18,6 +18,10 @@
 		8581EC17232DBAE800D7F6BC /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8581EC16232DBAE800D7F6BC /* utils.swift */; };
 		85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DAAADD232D9FFA005BDDCF /* AudioController.swift */; };
 		CC1A14C6232D94A400F0225B /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CC1A14C5232D94A400F0225B /* Scene.sks */; };
+		CC1A14DB232DBBDC00F0225B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14D9232DBBDC00F0225B /* UIViewExtension.swift */; };
+		CC1A14DC232DBBDC00F0225B /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14DA232DBBDC00F0225B /* CoreGraphicsExtensions.swift */; };
+		CC1A14DF232DBCAA00F0225B /* FaceDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14DD232DBCAA00F0225B /* FaceDetectionViewController.swift */; };
+		CC1A14E0232DBCAA00F0225B /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A14DE232DBCAA00F0225B /* FaceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,10 @@
 		85DAAADD232D9FFA005BDDCF /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		875176D278C311131AB64847 /* Pods-The Bubble App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.release.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.release.xcconfig"; sourceTree = "<group>"; };
 		CC1A14C5232D94A400F0225B /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
+		CC1A14D9232DBBDC00F0225B /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		CC1A14DA232DBBDC00F0225B /* CoreGraphicsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsExtensions.swift; sourceTree = "<group>"; };
+		CC1A14DD232DBCAA00F0225B /* FaceDetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetectionViewController.swift; sourceTree = "<group>"; };
+		CC1A14DE232DBCAA00F0225B /* FaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
 		DA5A32BABA1071D6945CC60F /* Pods-The Bubble App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Bubble App.debug.xcconfig"; path = "Target Support Files/Pods-The Bubble App/Pods-The Bubble App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +96,10 @@
 		8531A3E9232D589500D5D08D /* The Bubble App */ = {
 			isa = PBXGroup;
 			children = (
+				CC1A14D8232DBBDC00F0225B /* Extensions */,
 				CC1A14C5232D94A400F0225B /* Scene.sks */,
+				CC1A14DD232DBCAA00F0225B /* FaceDetectionViewController.swift */,
+				CC1A14DE232DBCAA00F0225B /* FaceView.swift */,
 				8531A3EA232D589500D5D08D /* AppDelegate.swift */,
 				8531A3EE232D589500D5D08D /* ViewController.swift */,
 				8531A3F0232D589500D5D08D /* Main.storyboard */,
@@ -101,6 +112,15 @@
 				8581EC16232DBAE800D7F6BC /* utils.swift */,
 			);
 			path = "The Bubble App";
+			sourceTree = "<group>";
+		};
+		CC1A14D8232DBBDC00F0225B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CC1A14D9232DBBDC00F0225B /* UIViewExtension.swift */,
+				CC1A14DA232DBBDC00F0225B /* CoreGraphicsExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,10 +241,14 @@
 			files = (
 				8581EC13232DB57700D7F6BC /* Session.swift in Sources */,
 				8581EC15232DB5E600D7F6BC /* Bubble.swift in Sources */,
+				CC1A14DB232DBBDC00F0225B /* UIViewExtension.swift in Sources */,
 				8531A3EF232D589500D5D08D /* ViewController.swift in Sources */,
+				CC1A14E0232DBCAA00F0225B /* FaceView.swift in Sources */,
 				8581EC17232DBAE800D7F6BC /* utils.swift in Sources */,
 				85DAAADE232D9FFA005BDDCF /* AudioController.swift in Sources */,
+				CC1A14DC232DBBDC00F0225B /* CoreGraphicsExtensions.swift in Sources */,
 				8531A3EB232D589500D5D08D /* AppDelegate.swift in Sources */,
+				CC1A14DF232DBCAA00F0225B /* FaceDetectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
